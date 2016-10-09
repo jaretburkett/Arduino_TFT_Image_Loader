@@ -120,7 +120,11 @@ void readSerialTFT() {
           uint16_t pixColor = b1 << 8 | b2;
           tft.drawPixel(x, y, pixColor);
 
-          // this delay needed for stm32 for some reason
+          /* 
+           *  This delay slows stuff down a lot but needed
+           *  on STM32 for some reason. Comment out to test
+           *  at fullspeed.
+           */
           delayMicroseconds(150);
           
         } // for x

@@ -3,6 +3,11 @@
 Currently only support for STM32Duino. More support to come. This is just loaded 
 for help with a USB serial bug at the time. I will clean up as I go. 
 
+The Arduino code is in the Arduino Folder. You can set the rotation at the top of the code. 
+
+For help with the STM32 USB Serial Bug, a delay is needed to slow things down to prevent corruption. 
+You can find the delay at line 128 in the Arduino Code. 
+
 ####Requirements
 #####Arduino
 [OSHLAB_ILI9341](https://github.com/oshlab/OSHLAB_ILI9341) or compatable.
