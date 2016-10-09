@@ -1,4 +1,13 @@
-
+/*
+ * You need the following libraries to make this work. 
+ * 
+ * https://github.com/oshlab/OSHLAB_ILI9341
+ * or any Adafruit GFX Library for your display
+ * 
+ * https://github.com/adafruit/Adafruit-GFX-Library
+ * Needed GFX Library
+ * 
+ */
 // set rotation of tft
 uint16_t rotation = 3; //0 - 3
 
@@ -14,11 +23,11 @@ uint16_t rotation = 3; //0 - 3
 
 #include <SPI.h>
 #include <Adafruit_GFX.h>    // Core graphics library, with extra fonts.
-//#include "Adafruit_ILI9341_STM.h"
-#include <Adafruit_ILI9341_STM32.h>
+//#include <Adafruit_ILI9341.h>
+#include <OSHLAB_ILI9341.h>
 
-Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST); // Use hardware SPI
-//Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RST, TFT_MISO); // Use hardware SPI
+OSHLAB_ILI9341 tft = OSHLAB_ILI9341(TFT_CS, TFT_DC, TFT_RST); // Use hardware SPI
+//OSHLAB_ILI9341 tft = OSHLAB_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RST, TFT_MISO); // Use hardware SPI
 
 // global vars
 bool con = false;
@@ -81,8 +90,8 @@ void sendUpdate() {
 }
 
 void waitingForImage() {
-  tft.fillScreen(colorToTFT("ffffff"));
-  tft.setTextColor(colorToTFT("000000"));
+  tft.fillScreen(colorToTFT("000000"));
+  tft.setTextColor(colorToTFT("ffffff"));
   tft.setCursor(tft.width()/2-80, tft.height()/2);
   tft.print("Waiting for Image from USB");
 }
@@ -113,6 +122,7 @@ void readSerialTFT() {
 
           // this delay needed for stm32 for some reason
           delayMicroseconds(150);
+          
         } // for x
       } // for y
     } //FULLSCREEN_IMG

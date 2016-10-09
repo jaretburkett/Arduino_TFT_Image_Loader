@@ -16,6 +16,10 @@
     "min_width": 400,
     "min_height": 400
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaretburkett/Arduino_TFT_Image_Loader.git"
+  },
   "author": "Jaret Burkett",
   "license": "ISC",
   "dependencies": {
