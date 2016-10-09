@@ -1,0 +1,32 @@
+html,body {
+    height:100%;
+    width:100%;
+}
+#status {
+    width:25px;
+    height:25px;
+    border-radius: 50%;
+    margin:10px auto;
+    background-color: #d43f3a;
+}
+.connected {
+    background-color: #398439 !important;
+}
+.disconnected {
+    background-color: #d43f3a;
+}
+#imagecontainer {
+    border:1px solid #000;
+    width:200px;
+    height:200px;
+    margin:auto;
+}
+
+#img-selector {
+    width: 200px;
+    margin: 20px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: calc(50% - 100px);
+}

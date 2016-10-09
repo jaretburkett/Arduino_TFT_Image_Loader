@@ -1,0 +1,27 @@
+{
+  "name": "openterm",
+  "version": "1.0.0",
+  "description": "Open Source Terminal",
+  "main": "main.html",
+  "scripts": {
+    "start": "./node_modules/.bin/nw .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall":"cd ./node_modules/serialport && sudo ../.bin/nw-gyp rebuild --target=0.14.7"
+  },
+  "window": {
+    "width": 400,
+    "height": 430,
+    "title": "Arduino TFT Image Loader",
+    "toolbar": false,
+    "min_width": 400,
+    "min_height": 400
+  },
+  "author": "Jaret Burkett",
+  "license": "ISC",
+  "dependencies": {
+    "jimp": "^0.2.27",
+    "nw": "^0.14.7-sdk",
+    "nw-gyp": "^3.4.0",
+    "serialport": "^4.0.1"
+  }
+}
