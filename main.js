@@ -13,6 +13,22 @@ var tftWidth = 200;
 var vid = '1eaf';
 var pid = '0004';
 
+var gui = require('nw.gui'); //or global.window.nwDispatcher.requireNwGui() (see https://github.com/rogerwang/node-webkit/issues/707)
+
+// Get the current window
+var win = gui.Window.get();
+
+// // closing cleanup
+// win.on('close', function() {
+//     try{
+//         device.close(function(){
+//             this.close(true);
+//         });
+//     }
+//     catch(e){
+//         this.close(true);
+//     }
+// });
 
 // checks if is device
 function isDevice(port) {
@@ -95,9 +111,9 @@ var serialscanner = setInterval(function () {
                         $('#status').removeClass('disconnected').addClass('connected');
 
                     } // if found device
-
                 });
             }); // find ports
+
         } // if not attached
     } // try
     catch (e) {

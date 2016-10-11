@@ -29,12 +29,19 @@
         <!-- Image is dimped here when uploaded -->
     </div>
     <div id="img-selector">
-        <form id="icon-form">
-            <label class="btn btn-primary btn-block btn-file pop"
-                   data-container="#icon-form">Browse<input id="icon-file" type="file"
-                                                                 style="display: none;">
-            </label>
-        </form>
+        <div class="row">
+            <div class="col-xs-6">
+                <button id="resend" class="btn btn-block btn-success">Send Again</button>
+            </div>
+            <div class="col-xs-6">
+                <form id="icon-form">
+                    <label class="btn btn-primary btn-block btn-file pop"
+                           data-container="#icon-form">Browse<input id="icon-file" type="file"
+                                                                    style="display: none;">
+                    </label>
+                </form>
+            </div>
+        </div>
         <p>Big images take time. </p>
     </div>
 </div>
@@ -87,6 +94,10 @@
     // set listner
     $("#icon-file").change(function () {
         processImg(this);
+        $(this).val('');
+    });
+    $('#resend').click(function(){
+        sendTFT(function(){});
     });
 </script>
 </body>
