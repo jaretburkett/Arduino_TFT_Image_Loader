@@ -52,22 +52,28 @@
                 var ext = matches[1];
                 var base64_data = matches[2];
                 var buffer = new Buffer(base64_data, 'base64');
-                fs.writeFile('./img/tmp.' + ext, buffer, function (err) {
+                console.log('Writing Tmp Image');
+                fs.writeFile('img/tmp.' + ext, buffer, function (err) {
                     if (err) {
                         console.log('Error: ' + err);
                     }
                     else {
+                        console.log('Tmp image written');
                         // saved. Do something with it
-                        Jimp.read('./img/tmp.' + ext).then(function (image) {
+                        Jimp.read('img/tmp.' + ext).then(function (image) {
+                            console.log('Reading tmp image');
                             // remove old image
-                            fs.unlink('./img/tmp.' + ext, function (err) {
+                            fs.unlink('img/tmp.' + ext, function (err) {
                                 // old image removed
+                                console.log('Deleted old image');
                             });
                             var name = new Date().getTime();
+                            console.log('Scaling Image');
                             image.cover(tftWidth, tftHeight)      // resize
-                                    .write('./img/tmp.png', function () {
+                                    .write('img/tmp.png', function () {
                                         // write new image, show image
-                                        $('#imagecontainer').html('<img src="./img/tmp.png?'+new Date().getTime()+'"/>');
+                                        console.log('Image Saved');
+                                        $('#imagecontainer').html('<img src="img/tmp.png?'+new Date().getTime()+'"/>');
                                         sendTFT(function(){});
                                     });
                         }); // jimp resize

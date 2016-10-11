@@ -6,8 +6,8 @@ var Jimp = require("jimp");
 var serial = false;
 var attached = false;
 var device;
-var tftHeight = 0;
-var tftWidth = 0;
+var tftHeight = 200;
+var tftWidth = 200;
 
 // stm32 serial
 var vid = '1eaf';
@@ -54,6 +54,7 @@ var serialscanner = setInterval(function () {
             var found = false;
             SerialPort.list(function (err, ports) {
                 ports.forEach(function (port) {
+                    // console.log(port);
                     if (isDevice(port)) {
                         found = true;
                         serial = true;
