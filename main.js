@@ -63,66 +63,74 @@ function isDevice(port) {
 } // function isDevice(port)
 
 
-// serial scanner
-var serialscanner = setInterval(function () {
-    try {
-        if (!attached) {
-            var found = false;
-            SerialPort.list(function (err, ports) {
-                ports.forEach(function (port) {
-                    // console.log(port);
-                    if (isDevice(port)) {
-                        found = true;
-                        serial = true;
-                        console.log("Device Found:");
-                        console.log(JSON.stringify(port));
-                        attached = true;
-                        device = new SerialPort(port.comName, {
-                            baudrate: 115200,
-                            parser: SerialPort.parsers.readline('\n'),
-                            dataBits: 8,
-                            parity: 'none',
-                            stopBits: 1,
-                            flowControl: false
-                        });
-
-                        device.on('error', function (err) {
-                            console.log('Error: ', err);
-                            console.log('Device Error');
-                            serial = false;
-                            attached = false;
-                            device.close(function(){
-
+function scanserial(){
+        try {
+            if (!attached) {
+                var found = false;
+                SerialPort.list(function (err, ports) {
+                    ports.forEach(function (port) {
+                        // console.log(port);
+                        if (isDevice(port)) {
+                            found = true;
+                            serial = true;
+                            console.log("Device Found:");
+                            console.log(JSON.stringify(port));
+                            attached = true;
+                            device = new SerialPort(port.comName, {
+                                baudrate: 115200,
+                                parser: SerialPort.parsers.readline('\n'),
+                                dataBits: 8,
+                                parity: 'none',
+                                stopBits: 1,
+                                flowControl: false
                             });
-                            $('#status').removeClass('connected').addClass('disconnected');
-                        });
-                        device.on('data', function (data) {
-                            parseSerial(data);
-                        });
-                        device.on('disconnect', function () {
-                            attached = false;
-                            console.log("Device Disconnected");
-                            console.log("Looking for Device");
-                            $('#status').removeClass('connected').addClass('disconnected');
-                            serial = false;
-                            attached = false;
-                        });
-                        // device.readTimeout(1000);
-                        $('#status').removeClass('disconnected').addClass('connected');
 
-                    } // if found device
-                });
-            }); // find ports
+                            device.on('error', function (err) {
+                                console.log('Error: ', err);
+                                console.log('Device Error');
+                                serial = false;
+                                attached = false;
+                                device.close(function(){
 
-        } // if not attached
-    } // try
-    catch (e) {
-        console.log('cant connect');
-        console.log(e);
-        serial = false;
-        attached = false;
-    }
-}, 1000); // - Serial Scanner
+                                });
+                                $('#status').removeClass('connected').addClass('disconnected');
+                            });
+                            device.on('data', function (data) {
+                                parseSerial(data);
+                            });
+                            device.on('disconnect', function () {
+                                attached = false;
+                                console.log("Device Disconnected");
+                                console.log("Looking for Device");
+                                $('#status').removeClass('connected').addClass('disconnected');
+                                serial = false;
+                                attached = false;
+                                    scanserial();
+                            });
+                            // device.readTimeout(1000);
+                            $('#status').removeClass('disconnected').addClass('connected');
+
+                        } // if found device
+                    });
+                }); // find ports
+                setTimeout(function(){
+                    scanserial();
+                }, 1000);
+
+            } // if not attached
+        } // try
+        catch (e) {
+            console.log('cant connect');
+            console.log(e);
+            serial = false;
+            attached = false;
+            setTimeout(function(){
+                scanserial();
+            }, 1000);
+        }
+}
+scanserial();
+
 
 // parse serial command
 function parseSerial(data) {

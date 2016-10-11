@@ -125,7 +125,7 @@ void readSerialTFT() {
            *  on STM32 for some reason. Comment out to test
            *  at fullspeed.
            */
-          delayMicroseconds(150);
+//          delayMicroseconds(150);
           
         } // for x
       } // for y
