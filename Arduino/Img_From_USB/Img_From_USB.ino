@@ -9,7 +9,7 @@
  * 
  */
 // set rotation of tft
-uint16_t rotation = 3; //0 - 3
+uint16_t rotation = 0; //0 - 3
 
 #define TFT_CS         PA15
 #define TFT_DC         PB3
@@ -112,12 +112,18 @@ void readSerialTFT() {
       uint8_t b1;
       uint8_t b2;
 
+      uint16_t buff[tft.width()/2+1];
+      uint16_t count = 0;
       for (uint16_t y = 0; y < tft.height(); y++) {
         for (uint16_t x = 0; x < tft.width(); x++) {
+          
+          while(Serial.available() < 1);
           b1 = Serial.read(); // MSB
+          while(Serial.available() < 1);
           b2 = Serial.read(); // LSB
           // combine bytes to a 16 bit
           uint16_t pixColor = b1 << 8 | b2;
+          buff[count] = pixColor;
           tft.drawPixel(x, y, pixColor);
 
           /* 
